@@ -14,7 +14,7 @@
                             <h2 class="font-bold text-lg">{{$note->note_title}}</h2>
                             <div class="flex flex-col ml-2">
                                 @foreach ($note->pages as $page)
-                                    <a class="truncate" href="../page/{{$page->id}}">{{$page->page_title}}</a>
+                                    <a class="truncate" href=" {{route('page.show', $page->id)}} ">{{$page->page_title}}</a>
                                 @endforeach
                                 {{-- ページ新規作成ボタン --}}
                                <a class="truncate text-gray-300" href="/">＜新規作成＞</a>
@@ -26,12 +26,12 @@
                 {{-- ページエリア --}}
                 <div class="flex flex-col order-1 sm:order-2 w-11/12 sm:w-full my-3 sm:my-5 mx-auto sm:mr-5">
                     {{-- ボタンエリア --}}
-                    <div class="flex mb-3 items-center">
+                    <div class="flex items-center">
                         @isset($contents->id)
                             <form action=" {{route('page.update', $contents->id)}} " method="POST" id="update_form">
                                 @csrf
                                 @method('PATCH')
-                                <button class="bg-blue-500 text-white rounded text-sm font-bold px-3 py-1 shadow-lg" type="submit">更新</button>
+                                <button class="bg-blue-500 text-white rounded text-sm font-bold px-3 py-1 shadow-lg mb-3" type="submit">更新</button>
                             </form>
                         @endisset
                         @if(session('message')) <p class="ml-3">{{ session('message') }}</p> @endif
