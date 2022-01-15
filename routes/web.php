@@ -16,7 +16,7 @@ use App\Http\Controllers\PageController;
 |
 */
 
-Route::view('/', 'welcome');
+Route::redirect('/', '/dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::redirect('/dashboard', '/note')->name('dashboard');
