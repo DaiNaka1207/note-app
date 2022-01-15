@@ -23,9 +23,16 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // 新規作成されたnote_idを取得して代入
+        $note_id = $request->note_id;
+
+        // データベースからノートの情報を取得して代入
+        $notes = Note::all();
+
+        // ダッシュボードを表示
+        return view('dashboard', compact('note_id', 'notes'));
     }
 
     /**
@@ -36,7 +43,13 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // フォームに入力された内容をデータベースへ登録
+        $page = new Page;
+        $form = $request->all();
+        $page->fill($form)->save();
+
+        // ダッシュボードを表示
+        return redirect('/dashboard');
     }
 
     /**
@@ -48,13 +61,13 @@ class PageController extends Controller
     public function show($id)
     {
         // データベースからノートの情報を取得して代入
-       $notes = Note::all();
+        $notes = Note::all();
 
-       // データベースからページの情報を取得して代入
-       $contents = Page::find($id);
+        // データベースからページの情報を取得して代入
+        $contents = Page::find($id);
 
-       // ダッシュボードを表示
-       return view('dashboard',compact('notes','contents'));
+        // ダッシュボードを表示
+        return view('dashboard', compact('notes', 'contents'));
     }
 
     /**
@@ -81,7 +94,7 @@ class PageController extends Controller
         $page = Page::find($id);
 
         // ページの内容を更新
-        $page->page_contents = $request->content;
+        $page->page_contents = $request->page_contents;
         $page->save();
 
         // 元の画面を表示
